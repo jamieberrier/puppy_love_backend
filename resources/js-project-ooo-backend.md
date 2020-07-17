@@ -46,7 +46,7 @@ The application we will create during the project build series is a "Syllabus Sh
 
 ### PART 2: Routes, Controllers, Serializers
 
-- [] 1. Routes
+- [x] 1. Routes
     - Implement _specific_ namespaced routes for _a_ controller **for MVP**
     - REMEMBER! We're _trying_ to build vertically.
 
@@ -63,7 +63,7 @@ The application we will create during the project build series is a "Syllabus Sh
     - Visit `http://localhost:3000/api/v1/<your_resource_name>` to see error
 
 
-- [] 2. Controllers
+- [x] 2. Controllers
     - In your console run: `rails g controller api/v1/<your controller_name>` (Make sure you capitalize and the first letter of the controller name!)
     - Build relevant routes for MVP (ex: `index` and `create`)
     - Visit `http://localhost:3000/api/v1/<your_resource_name>` to see JSON data

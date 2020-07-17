@@ -102,7 +102,7 @@ The application we will create during the project build series is a "Syllabus Sh
 
 
 - [x] 4. **TEST:** Confirm data at your Rails endpoints! (ex: `http://seeda.com/api/v1/syllabuses`)
-- [ ] 5. Build out your associated models using this same process. **REMEMBER: Focus on building vertically for MVP** this means only starting with 2 or 3 models before moving on to the frontend.
+- [x] 5. Build out your associated models using this same process. **REMEMBER: Focus on building vertically for MVP** this means only starting with 2 or 3 models before moving on to the frontend.
 
 
 ### PART 3: DOM Manipulation, Events, and Fetch using Rails API

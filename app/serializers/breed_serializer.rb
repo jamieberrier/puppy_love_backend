@@ -1,5 +1,4 @@
 class BreedSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name
-  # has_many :posts
+  attributes :name, :posts
 end

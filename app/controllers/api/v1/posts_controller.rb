@@ -2,7 +2,9 @@ class Api::V1::PostsController < ApplicationController
 
   def index
     posts = Post.all
-    render json: posts
+    render json: PostSerializer.new(posts)
+    # options = { include: [:breed] }
+    # render json: PostSerializer.new(posts, options)
   end
 
   def create

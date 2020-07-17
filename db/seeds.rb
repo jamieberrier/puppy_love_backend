@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Breed.destroy_all
+
+boxer = Breed.create(name: "Boxer")
+dane = Breed.create(name: "Great Dane")
+frenchie = Breed.create(name: "French Bulldog")

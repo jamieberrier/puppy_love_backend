@@ -17,6 +17,12 @@ class Api::V1::PostsController < ApplicationController
     end
   end
 
+  def update
+    post = Post.find(params[:post][:id])
+    post.update(num_of_likes: params[:post][:num_of_likes])
+    render json: PostSerializer.new(post), status: :accepted
+  end
+
   private
 
   def post_params

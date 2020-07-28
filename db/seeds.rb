@@ -12,6 +12,7 @@ boxer = Breed.create(name: 'Boxer')
 dane = Breed.create(name: 'Great Dane')
 frenchie = Breed.create(name: 'French Bulldog')
 terrier = Breed.create(name: 'Terrier')
+Breed.create(name: 'Bulldog')
 
 Post.create(breed_id: terrier.id, num_of_likes: 79, picture: 'https://www.dogbreedinfo.com/images31/NorfolkTerrierPurebredDogIvy2YearsOld2.jpg')
 Post.create(breed_id: frenchie.id, num_of_likes: 100, picture: 'https://happyfrenchbulldog.com/wp-content/uploads/2019/08/French-bulldog-puppy-guide.jpg')

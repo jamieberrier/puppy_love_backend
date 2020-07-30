@@ -3,4 +3,9 @@ class Api::V1::BreedsController < ApplicationController
     breeds = Breed.all
     render json: BreedSerializer.new(breeds)
   end
+
+  def show
+    breed = Breed.find(params[:id])
+    render json: BreedSerializer.new(breed)
+  end
 end

@@ -5,15 +5,40 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'uri'
+require 'net/http'
+require 'openssl'
+
 Breed.destroy_all
 Post.destroy_all
 
-response = RestClient.get 'https://api.thedogapi.com/v1/breeds?api_key=13f08d5e-0c80-47c9-811f-afbe558e0e8f'
+# get access token from petfinder api
+key = 'p289h86Kbr4EZ99HF10oH8aKiswniEUHSonNeHpGhSuDNCSgIJ'
+secret = 'ykSeN25BWR4Igz7sAmk9brfKbTHMB1pAl4ntTNi4'
+url = URI('https://api.petfinder.com/v2/oauth2/token')
+
+http = Net::HTTP.new(url.host, url.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+request = Net::HTTP::Post.new(url)
+request['content-type'] = 'application/x-www-form-urlencoded'
+request.body = "grant_type=client_credentials&client_id=#{key}&client_secret=#{secret}"
+
+response = http.request(request)
+
+j_resp = JSON.parse response.read_body
+
+token_type = j_resp['token_type']
+token = j_resp['access_token']
+
+# get dog breeds from petfinder api
+response = RestClient.get 'https://api.petfinder.com/v2/types/dog/breeds', { content_type: 'application/x-www-form-urlencoded', authorization: "#{token_type} #{token}" }
 json = JSON.parse response
 
-if !json.nil?
-  json.map do |breed|
-    Breed.create(name: breed['name'].to_s)
+if json.present?
+  json['breeds'].map do |breed|
+    Breed.create(name: breed['name'])
   end
 else
   puts 'error seeding breeds'

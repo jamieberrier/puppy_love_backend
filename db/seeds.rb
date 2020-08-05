@@ -13,8 +13,9 @@ Breed.destroy_all
 Post.destroy_all
 
 # get access token from petfinder api
-key = 'p289h86Kbr4EZ99HF10oH8aKiswniEUHSonNeHpGhSuDNCSgIJ'
-secret = 'ykSeN25BWR4Igz7sAmk9brfKbTHMB1pAl4ntTNi4'
+PETFINDER_API_KEY = ENV['petfinder_api_key']
+PETFINDER_API_SECRET = ENV['petfinder_api_secret']
+
 url = URI('https://api.petfinder.com/v2/oauth2/token')
 
 http = Net::HTTP.new(url.host, url.port)
@@ -23,7 +24,7 @@ http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
 request = Net::HTTP::Post.new(url)
 request['content-type'] = 'application/x-www-form-urlencoded'
-request.body = "grant_type=client_credentials&client_id=#{key}&client_secret=#{secret}"
+request.body = "grant_type=client_credentials&client_id=#{PETFINDER_API_KEY}&client_secret=#{PETFINDER_API_SECRET}"
 
 response = http.request(request)
 

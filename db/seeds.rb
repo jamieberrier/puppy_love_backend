@@ -5,36 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'uri'
-require 'net/http'
-require 'openssl'
-
 Breed.destroy_all
 Post.destroy_all
 
 # get access token from petfinder api
-PETFINDER_API_KEY = ENV['petfinder_api_key']
-PETFINDER_API_SECRET = ENV['petfinder_api_secret']
-
-url = URI('https://api.petfinder.com/v2/oauth2/token')
-
-http = Net::HTTP.new(url.host, url.port)
-http.use_ssl = true
-http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-request = Net::HTTP::Post.new(url)
-request['content-type'] = 'application/x-www-form-urlencoded'
-request.body = "grant_type=client_credentials&client_id=#{PETFINDER_API_KEY}&client_secret=#{PETFINDER_API_SECRET}"
-
-response = http.request(request)
-
-j_resp = JSON.parse response.read_body
-
-token_type = j_resp['token_type']
-token = j_resp['access_token']
+token_info = Breed.request_token
 
 # get dog breeds from petfinder api
-response = RestClient.get 'https://api.petfinder.com/v2/types/dog/breeds', { content_type: 'application/x-www-form-urlencoded', authorization: "#{token_type} #{token}" }
+response = RestClient.get 'https://api.petfinder.com/v2/types/dog/breeds', { content_type: 'application/x-www-form-urlencoded', authorization: "#{token_info[:token_type]} #{token_info[:token]}" }
 json = JSON.parse response
 
 if json.present?

@@ -12,7 +12,7 @@ class Api::V1::PostsController < ApplicationController
 
     if post.save
       # render json: post, status: :accepted
-      render json: PostSerializer.new(post), status: :accepted
+      render json: PostSerializer.new(post), status: :created
     else
       render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
     end
@@ -20,8 +20,12 @@ class Api::V1::PostsController < ApplicationController
 
   def update
     post = Post.find(params[:post][:id])
-    post.update(num_of_likes: params[:post][:num_of_likes])
-    render json: PostSerializer.new(post), status: :accepted
+
+    if post.update(num_of_likes: params[:post][:num_of_likes])
+      render json: PostSerializer.new(post), status: :ok
+    else
+      render json: { errors: post.errors.full_messages }, status: :internal_server_error
+    end
   end
 
   private

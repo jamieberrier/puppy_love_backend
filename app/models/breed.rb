@@ -18,6 +18,6 @@ class Breed < ApplicationRecord
     response = http.request(request)
     j_resp = JSON.parse response.read_body
 
-    { token_type: j_resp['token_type'], token: j_resp['access_token'] }
+    { token_type: j_resp['token_type'], token: j_resp['access_token'], expires: j_resp['expires_in'] }
   end
 end
